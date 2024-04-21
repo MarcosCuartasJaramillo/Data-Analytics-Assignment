@@ -1,0 +1,76 @@
+## Data Analysis assignment (20 points)
+
+You have been given the dataset `travel-times` in a CSV format. This dataset comes from a driver that uses an app to track GPS coordinates as he drives to work and back each day. The app collects the location and elevation data. In total, data for about 200 trips are summarized in this data set.
+
+Load the `travel-times` in a `df` variable using `pandas` and then perform the following:
+- print the shape of the dataset **(1 points)**
+- print the first 15 rows of the dataset **(1 points)**
+- get information for the features (columns) with missing values **(1 points)**
+- drop duplicate values (if any) by keeping only the last instance **(1 points)**
+- calculate the total number of missing values (if any) on each column **(2 points)**
+- create two copies of the dataframe, and then:
+    - drop rows with missing values from the 1st copy **(1 points)**
+    - drop columns with missing values from the 2nd copy **(1 points)**
+- get summary statistics and see the correlation between the numerical columns **(1 points)**
+- show rows 11 to 14 **(1 points)**
+- create a subset with trips occurred on November 23, 2011 and January 6, 2012 **(2 points)**
+- produce a scatterplot between `Distance` and `TotalTime` **(1 points)**
+    * Use:
+```python
+import matplotlib.pyplot as plt
+plt.rcParams.update({'font.size': 20, 'figure.figsize': (10, 8)})
+```
+- produce boxplots for `AvgSpeed` and `AvgMovingSpeed` (use different cells for each) **(2 points)**
+
+import matplotlib.pyplot as plt
+import pandas as pd
+
+plt.rcParams.update({'font.size': 20, 'figure.figsize': (10, 8)})
+
+df = pd.read_csv("travel-times.csv")
+
+df.shape
+
+df.head(15)
+
+df.info()
+
+
+df.drop_duplicates(inplace=True)
+
+
+
+df.isnull().sum()
+
+
+df1 = df.copy()
+df2 = df.copy()
+
+df1.dropna(inplace=True)
+df1.shape
+
+
+df2.dropna(axis=1, inplace=True)
+df2.shape
+
+df.describe()
+
+
+df.select_dtypes(exclude='object').corr()
+
+df.iloc[10:14]
+
+
+df[df['Date'] == '11/23/2011']
+
+
+df[df['Date'] == '01/06/2012']
+
+
+df.plot(kind='scatter', x='Distance', y='TotalTime')
+
+
+
+df[['AvgMovingSpeed', 'AvgSpeed']].plot(kind='box')
+
+
